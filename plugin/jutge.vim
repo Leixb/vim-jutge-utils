@@ -63,7 +63,7 @@ function! JutgeFet()
 endfunction
 
 " Commands to the previoud functions
-command! -nargs=? JutgeTest call TestJutge(<f-args>)
+command! -nargs=? JutgeTest call JutgeTest(<f-args>)
 command! JutgeFet call JutgeFet()
 
 " If dentie exists define some nice commands to search through already solved
