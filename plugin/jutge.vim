@@ -68,7 +68,5 @@ command! JutgeFet call JutgeFet()
 
 " If dentie exists define some nice commands to search through already solved
 " problems
-if exists("g:loaded_denite")
-    command! JutgeSearch exec 'Denite -path=' . g:jutge_done_folder ' file_rec'
-    command! -nargs=? JutgeGrep exec 'Denite -path=' . expand(g:jutge_done_folder) ' grep -input=' . '<args>'
-endif
+command! JutgeSearch exec 'Denite -path=' . g:jutge_done_folder ' file_rec'
+command! -nargs=? JutgeGrep exec 'Denite -path=' . expand(g:jutge_done_folder) ' grep -input=' . '<args>'
