@@ -11,7 +11,7 @@ let s:local_path = expand('<sfile>:p:h')
 let g:loaded_jutge = 1
 
 " Initilize defaults if not specified by the user
-let g:jutge_command = get(g:,'jutge_jutge', expand(s:local_path .'/../python/jutgeutils/jutge.py'))
+let g:jutge_command = get(g:,'jutge_command', expand(s:local_path .'/../python/jutgeutils/jutge.py'))
 
 let g:jutge_folder = get(g:, 'jutge_folder' , $HOME . '/Documents/jutge')
 
