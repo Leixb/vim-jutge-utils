@@ -15,6 +15,8 @@ let g:jutge_command = get(g:,'jutge_command', expand(s:local_path .'/../python/j
 
 let g:jutge_folder = get(g:, 'jutge_folder' , $HOME . '/Documents/jutge')
 
+let g:jutge_default_flags = get(g:, 'jutge_default_flags' , $HOME . '')
+
 let g:jutge_done_folder = get(g:, 'jutge_done_folder', g:jutge_folder . '/done')
 
 " Boolean, tells JutgeFet() to delete file in working dir after writing it
@@ -28,7 +30,7 @@ endif
 
 " Wraper around jutge.py to test cases from jutge.org
 function! JutgeTest(...)
-    let s:jutge_flags = join(a:000)
+    let s:jutge_flags = join(a:000) + g:jutge_default_flags
     if has('nvim')
         exec 'term ' . g:jutge_command . ' test ' . s:jutge_flags . '"%"'
     else
@@ -37,12 +39,12 @@ function! JutgeTest(...)
 endfunction
 
 function! JutgeDownload(...)
-    let s:jutge_flags = join(a:000)
+    let s:jutge_flags = join(a:000) + g:jutge_default_flags
     exec '!' . g:jutge_command . ' download ' . s:jutge_flags . '"%"'
 endfunction
 
 function! JutgeAddCases(...)
-    let s:jutge_flags = join(a:000)
+    let s:jutge_flags = join(a:000) + g:jutge_default_flags
     if has('nvim')
         exec 'term ' . g:jutge_command . ' addcases ' . s:jutge_flags . '"%"'
     else
