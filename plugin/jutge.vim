@@ -30,25 +30,25 @@ endif
 
 " Wraper around jutge.py to test cases from jutge.org
 function! JutgeTest(...)
-    let s:jutge_flags = join(a:000) + g:jutge_default_flags
+    let s:jutge_flags = join(a:000) + ' ' + g:jutge_default_flags
     if has('nvim')
-        exec 'term ' . g:jutge_command . ' test ' . s:jutge_flags . '"%"'
+        exec 'term ' . g:jutge_command . ' test ' . '"%"'. s:jutge_flags 
     else
-        exec '!' . g:jutge_command . ' test ' . s:jutge_flags . '"%"'
+        exec '!' . g:jutge_command . ' test ' . '"%"'. s:jutge_flags 
     endif
 endfunction
 
 function! JutgeDownload(...)
-    let s:jutge_flags = join(a:000) + g:jutge_default_flags
-    exec '!' . g:jutge_command . ' download ' . s:jutge_flags . '"%"'
+    let s:jutge_flags = join(a:000) + ' ' + g:jutge_default_flags
+    exec '!' . g:jutge_command . ' download ' . '"%"' . s:jutge_flags 
 endfunction
 
 function! JutgeAddCases(...)
-    let s:jutge_flags = join(a:000) + g:jutge_default_flags
+    let s:jutge_flags = join(a:000) + ' ' + g:jutge_default_flags
     if has('nvim')
-        exec 'term ' . g:jutge_command . ' addcases ' . s:jutge_flags . '"%"'
+        exec 'term ' . g:jutge_command . ' addcases ' . '"%"' . s:jutge_flags 
     else
-        exec '!' . g:jutge_command . ' addcases ' . s:jutge_flags . '"%"'
+        exec '!' . g:jutge_command . ' addcases ' . '"%"' . s:jutge_flags 
     endif
 endfunction
 
