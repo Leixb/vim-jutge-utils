@@ -34,8 +34,8 @@ endif
 " Wraper around jutge.py to test cases from jutge.org
 function! JutgeTest(...)
     let s:jutge_flags = join(a:000) . ' ' . g:jutge_default_flags . ' ' . g:jutge_test_flags
-    if &filetype == 'cpp'
-        let s:executable = "_%:t:r"
+    if &filetype == 'cpp' or &filetype == 'c'
+        let s:executable = "%:p:h/_%:t:r"
     else
         let s:executable = %
     endif
