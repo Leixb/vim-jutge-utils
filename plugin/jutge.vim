@@ -11,13 +11,16 @@ let s:local_path = expand('<sfile>:p:h')
 let g:loaded_jutge = 1
 
 " Initilize defaults if not specified by the user
-let g:jutge_command = get(g:,'jutge_command', expand(s:local_path .'/../python/jutgeutils/jutge.py'))
+let g:jutge_command = get(g:,'jutge_command', expand(s:local_path .'/../python/jutge_cli/jutge.py'))
 
-let g:jutge_folder = get(g:, 'jutge_folder' , $HOME . '/Documents/jutge')
+let g:jutge_folder = get(g:, 'jutge_folder' , $HOME . '/Documents/Universitat/PROG')
 
 let g:jutge_default_flags = get(g:, 'jutge_default_flags' , '')
+let g:jutge_test_flags = get(g:, 'jutge_test_flags' , '')
+let g:jutge_download_flags = get(g:, 'jutge_download_flags' , '')
+let g:jutge_addcases_flags = get(g:, 'jutge_addcases_flags' , '')
 
-let g:jutge_done_folder = get(g:, 'jutge_done_folder', g:jutge_folder . '/done')
+let g:jutge_done_folder = get(g:, 'jutge_done_folder', g:jutge_folder . '/Done')
 
 " Boolean, tells JutgeFet() to delete file in working dir after writing it
 " to the done folder
@@ -30,21 +33,26 @@ endif
 
 " Wraper around jutge.py to test cases from jutge.org
 function! JutgeTest(...)
-    let s:jutge_flags = join(a:000) . ' ' . g:jutge_default_flags
-    if has('nvim')
-        exec 'term ' . g:jutge_command . ' test ' . '"%" '. s:jutge_flags 
+    let s:jutge_flags = join(a:000) . ' ' . g:jutge_default_flags . ' ' . g:jutge_test_flags
+    if &filetype == 'cpp'
+        let s:executable = "_%:r"
     else
-        exec '!' . g:jutge_command . ' test ' . '"%" '. s:jutge_flags 
+        let s:executable = %
+    endif
+    if has('nvim')
+        exec 'term ' . g:jutge_command . ' test ' . '"' . s:executable. '"' . '. s:jutge_flags 
+    else
+        exec '!' . g:jutge_command . ' test ' . '"' . s:executable. '"' . '. s:jutge_flags 
     endif
 endfunction
 
 function! JutgeDownload(...)
-    let s:jutge_flags = join(a:000) . ' ' . g:jutge_default_flags
+    let s:jutge_flags = join(a:000) . ' ' . g:jutge_default_flags . ' ' . g:jutge_download_flags
     exec '!' . g:jutge_command . ' download ' . '"%" ' . s:jutge_flags 
 endfunction
 
 function! JutgeAddCases(...)
-    let s:jutge_flags = join(a:000) . ' ' . g:jutge_default_flags
+    let s:jutge_flags = join(a:000) . ' ' . g:jutge_default_flags . ' ' . g:jutge_addcases_flags
     if has('nvim')
         exec 'term ' . g:jutge_command . ' addcases ' . '"%" ' . s:jutge_flags 
     else
