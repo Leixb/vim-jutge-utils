@@ -35,7 +35,7 @@ endif
 function! JutgeTest(...)
     let s:jutge_flags = join(a:000) . ' ' . g:jutge_default_flags . ' ' . g:jutge_test_flags
     if &filetype == 'cpp'
-        let s:executable = "_%:r"
+        let s:executable = "_%:t:r"
     else
         let s:executable = %
     endif
