@@ -34,8 +34,13 @@ if !executable(g:jutge_command)
     echoerr "Jutge error: " . g:jutge_command . " not found in PATH or is not executable. Did you forget to run 'git submodule update --init --recursive'?"
 endif
 
-function! JutgeCookie(a:cookie) abort
-    let g:jutge_cookie = a:cookie
+function! JutgeCookie(...) abort
+    if a:0 == 0
+        let g:jutge_cookie = a:0
+    else
+        let g:jutge_cookie = @+
+    endif
+
     let g:jutge_command_cookie = g:jutge_command . ' --cookie ' . g:jutge_cookie
 endfunction
 
