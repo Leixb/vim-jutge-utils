@@ -54,32 +54,30 @@ endfunction
 function! JutgeAddCases(...)
     let s:jutge_flags = join(a:000) . ' ' . g:jutge_default_flags . ' ' . g:jutge_addcases_flags
     if has('nvim')
-        exec 'term ' . g:jutge_command . ' addcases ' . '"%" ' . s:jutge_flags 
+        exec 'term ' . g:jutge_command . ' add-cases ' . '"%" ' . s:jutge_flags 
     else
-        exec '!' . g:jutge_command . ' addcases ' . '"%" ' . s:jutge_flags 
+        exec '!' . g:jutge_command . ' add-cases ' . '"%" ' . s:jutge_flags 
     endif
 endfunction
 
-function! JutgeGet(...)
+function! JutgePrint(...)
     if a:0 != 1
         echoerr "1 argument needed"
         return
     endif
     if a:1 == 'name'
-        exec '!' . g:jutge_command . ' getname ' . '"%"'
-    elseif a:1 == 'code' 
-        exec '!' . g:jutge_command . ' getcode ' . '"%"'
-    elseif a:1 == 'statement'
+        exec '!' . g:jutge_command . ' print name ' . '"%"'
+    elseif a:1 == 'stat'
         if has('nvim')
-            exec 'term ' . g:jutge_command . ' getstatement ' . '"%"'
+            exec 'term ' . g:jutge_command . ' print stat ' . '"%"'
         else
-            exec '!' . g:jutge_command . ' getstatement ' . '"%"'
+            exec '!' . g:jutge_command . ' print stat ' . '"%"'
         endif
-    elseif a:1 == 'samples'
+    elseif a:1 == 'cases'
         if has('nvim')
-            exec 'term ' . g:jutge_command . ' getsamples ' . '"%"'
+            exec 'term ' . g:jutge_command . ' print cases ' . '"%"'
         else
-            exec '!' . g:jutge_command . ' getsamples ' . '"%"'
+            exec '!' . g:jutge_command . ' print cases ' . '"%"'
         endif
     else
         echoerr 'Invalid command'
@@ -132,7 +130,7 @@ endfunction
 " Commands to the previoud functions
 command! -nargs=? JutgeTest call JutgeTest(<f-args>)
 command! JutgeFet call JutgeFet()
-command! -nargs=1 JutgeGet call JutgeGet(<f-args>)
+command! -nargs=1 JutgePrint call JutgePrint(<f-args>)
 command! JutgeDownload call JutgeDownload()
 command! -nargs=? JutgeAddCases call JutgeAddCases(<f-args>)
 
