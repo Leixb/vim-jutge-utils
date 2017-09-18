@@ -1,8 +1,8 @@
 
-if exists("g:loaded_jutge")
+"if exists("g:loaded_jutge")
      "Nothing to do
-    finish
-endif
+    "finish
+"endif
 
 " Get the path of the file being sourced
 let s:local_path = expand('<sfile>:p:h')
@@ -35,7 +35,7 @@ endif
 function! JutgeTest(...)
     let s:jutge_flags = join(a:000) . ' ' . g:jutge_default_flags . ' ' . g:jutge_test_flags
     if &filetype == 'cpp' || &filetype == 'c'
-        let s:executable = "%:p:h:~:./_%:t:r"
+        let s:executable = "%:h/_%:t:r"
     else
         let s:executable = %
     endif
