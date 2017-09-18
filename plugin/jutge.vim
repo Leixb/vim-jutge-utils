@@ -40,9 +40,9 @@ function! JutgeTest(...)
         let s:executable = %
     endif
     if has('nvim')
-        exec 'term ' . g:jutge_command . ' test ' . '"' . s:executable. '"' . '. s:jutge_flags 
+        exec 'term ' . g:jutge_command . ' test ' . '"' . s:executable. '" ' . s:jutge_flags 
     else
-        exec '!' . g:jutge_command . ' test ' . '"' . s:executable. '"' . '. s:jutge_flags 
+        exec '!' . g:jutge_command . ' test ' . '"' . s:executable. '" ' . s:jutge_flags 
     endif
 endfunction
 
