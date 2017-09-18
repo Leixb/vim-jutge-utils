@@ -1,8 +1,8 @@
 
-"if exists("g:loaded_jutge")
+if exists("g:loaded_jutge")
      "Nothing to do
-    "finish
-"endif
+    finish
+endif
 
 " Get the path of the file being sourced
 let s:local_path = expand('<sfile>:p:h')
@@ -34,15 +34,15 @@ endif
 " Wraper around jutge.py to test cases from jutge.org
 function! JutgeTest(...)
     let s:jutge_flags = join(a:000) . ' ' . g:jutge_default_flags . ' ' . g:jutge_test_flags
-    if &filetype == 'cpp' or &filetype == 'c'
+    if &filetype == 'cpp' || &filetype == 'c'
         let s:executable = "%:p:h/_%:t:r"
     else
         let s:executable = %
     endif
     if has('nvim')
-        exec 'term ' . g:jutge_command . ' test ' . '"' . s:executable. '" ' . s:jutge_flags 
+        exec 'term ' . g:jutge_command . ' test ' . '"' . s:executable . '" ' . s:jutge_flags 
     else
-        exec '!' . g:jutge_command . ' test ' . '"' . s:executable. '" ' . s:jutge_flags 
+        exec '!' . g:jutge_command . ' test ' . '"' . s:executable . '" ' . s:jutge_flags 
     endif
 endfunction
 
