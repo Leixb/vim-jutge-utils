@@ -1,8 +1,8 @@
 
-"if exists("g:loaded_jutge")
-     "Nothing to do
-    "finish
-"endif
+if exists("g:loaded_jutge")
+    "Nothing to do
+    finish
+endif
 
 " Get the path of the file being sourced
 let s:local_path = expand('<sfile>:p:h')
@@ -66,18 +66,18 @@ function! JutgePrint(...)
         return
     endif
     if a:1 == 'name'
-        exec '!' . g:jutge_command . ' print name ' . '"%"'
+        exec '!' . g:jutge_command . ' print name ' . '-p "%"'
     elseif a:1 == 'stat'
         if has('nvim')
-            exec 'term ' . g:jutge_command . ' print stat ' . '"%"'
+            exec 'term ' . g:jutge_command . ' print stat ' . '-p "%"'
         else
-            exec '!' . g:jutge_command . ' print stat ' . '"%"'
+            exec '!' . g:jutge_command . ' print stat ' . '-p "%"'
         endif
     elseif a:1 == 'cases'
         if has('nvim')
-            exec 'term ' . g:jutge_command . ' print cases ' . '"%"'
+            exec 'term ' . g:jutge_command . ' print cases ' . '-p "%"'
         else
-            exec '!' . g:jutge_command . ' print cases ' . '"%"'
+            exec '!' . g:jutge_command . ' print cases ' . '-p "%"'
         endif
     else
         echoerr 'Invalid command'
