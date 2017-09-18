@@ -15,6 +15,7 @@ let g:jutge_cookie = ""
 
 " Initilize defaults if not specified by the user
 let g:jutge_command = get(g:,'jutge_command', expand(s:local_path .'/../python/jutge_cli/jutge.py'))
+let g:jutge_command_cookie = g:jutge_command
 
 let g:jutge_folder = get(g:, 'jutge_folder' , $HOME . '/Documents/Universitat/PROG')
 
