@@ -115,27 +115,8 @@ endfunction
 function! JutgeFet() abort
     let s:option = confirm("This will move the current file to " . g:jutge_done_folder . " proceed?", "&Yes\n&no", 1)
     if s:option==1
-        let s:filename = g:jutge_done_folder . expand('/%')
-        if expand('%') == s:filename
-            echom "Aborting, current file is in the Done folder"
-            return
-        endif
-        if filereadable(s:filename)
-            let s:option = confirm("Overwrite" . s:filename, "&Yes\n&no", 1)
-            if s:option == 1
-                exec 'write! ' s:filename
-            else 
-                return
-            endif
-        else 
-            exec 'write ' s:filename
-        endif
-        if g:jutge_delete_done
-            call delete('%')
-            bdelete!
-        endif
+        exec '!' . g:jutge_command_cookie .' archive ' . ' "%"'
     endif
-
 endfunction
 
 function! JutgeNew() abort
