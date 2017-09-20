@@ -116,6 +116,7 @@ function! JutgeFet() abort
     let s:option = confirm("This will move the current file to " . g:jutge_done_folder . " proceed?", "&Yes\n&no", 1)
     if s:option==1
         exec '!' . g:jutge_command_cookie .' archive ' . ' "%"'
+        normal bd!<CR>
     endif
 endfunction
 
