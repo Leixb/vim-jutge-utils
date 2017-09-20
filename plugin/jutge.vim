@@ -37,9 +37,14 @@ endif
 
 function! JutgeCookie(...) abort
     if a:0 == 0
-        let g:jutge_cookie = a:0
-    else
         let g:jutge_cookie = @+
+    else
+        if a:0 == "" 
+            echoerr "Clipboard empty"
+            return
+        else
+            let g:jutge_cookie = a:0
+        endif
     endif
 
     let g:jutge_command_cookie = g:jutge_command . ' --cookie ' . g:jutge_cookie
@@ -144,11 +149,15 @@ endfunction
 
 " Commands to the previoud functions
 command! -nargs=? JutgeTest call JutgeTest(<f-args>)
+command! -nargs=? JT call JutgeTest(<f-args>)
 command! JutgeFet call JutgeFet()
 command! -nargs=1 JutgePrint call JutgePrint(<f-args>)
 command! JutgeDownload call JutgeDownload()
 command! -nargs=? JutgeAddCases call JutgeAddCases(<f-args>)
 command! -nargs=? JutgeCookie call JutgeCookie(<f-args>)
+command! -nargs=? JC call JutgeCookie(<f-args>)
+command! -nargs=? JutgeNew call JutgeNew(<f-args>)
+command! -nargs=? JN call JutgeNew(<f-args>)
 
 " If dentie exists define some nice commands to search through already solved
 " problems
