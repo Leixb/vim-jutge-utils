@@ -48,6 +48,8 @@ function! JutgeCookie(...) abort
     endif
 
     let g:jutge_command_cookie = g:jutge_command . ' --cookie ' . g:jutge_cookie
+
+    echomsg g:jutge_cookie
 endfunction
 
 " Wraper around jutge.py to test cases from jutge.org
