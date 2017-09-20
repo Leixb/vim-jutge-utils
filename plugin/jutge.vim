@@ -37,10 +37,16 @@ endif
 
 function! JutgeCookie(...) abort
     if a:0 == 0
-        let g:jutge_cookie = @+
+        let s:clipboard_content = @+
+        if s:clipboard_content == "" 
+            echoerr "Clipboard empty!"
+            return
+        else
+            let g:jutge_cookie = s:clipboard_content
+        endif
     else
         if a:0 == "" 
-            echoerr "Clipboard empty"
+            echoerr "No cookie provided and Clipboard is empty!"
             return
         else
             let g:jutge_cookie = a:0
