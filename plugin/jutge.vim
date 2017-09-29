@@ -22,7 +22,7 @@ let g:jutge_folder = get(g:, 'jutge_folder' , $HOME . '/Documents/Universitat/PR
 let g:jutge_default_flags = get(g:, 'jutge_default_flags' , '')
 let g:jutge_test_flags = get(g:, 'jutge_test_flags' , '')
 let g:jutge_download_flags = get(g:, 'jutge_download_flags' , '')
-let g:jutge_addcases_flags = get(g:, 'jutge_addcases_flags' , '')
+let g:jutge_addtest_flags = get(g:, 'jutge_addtest_flags' , '')
 
 let g:jutge_done_folder = get(g:, 'jutge_done_folder', g:jutge_folder . '/Done')
 
@@ -35,7 +35,7 @@ if !executable(g:jutge_command)
     echoerr "Jutge error: " . g:jutge_command . " not found in PATH or is not executable. Did you forget to run 'git submodule update --init --recursive'?"
 endif
 
-function! JutgeCookie(...) abort
+function! JutgeVimCookie(...) abort
     if a:0 == 0
         let s:clipboard_content = @+
         if s:clipboard_content == "" 
@@ -78,8 +78,8 @@ function! JutgeDownload(...) abort
     exec '!' . g:jutge_command_cookie . ' download ' . '"%" ' . s:jutge_flags 
 endfunction
 
-function! JutgeAddCases(...) abort
-    let s:jutge_flags = join(a:000) . ' ' . g:jutge_default_flags . ' ' . g:jutge_addcases_flags
+function! JutgeAddTest(...) abort
+    let s:jutge_flags = join(a:000) . ' ' . g:jutge_default_flags . ' ' . g:jutge_addtest_flags
     if has('nvim')
         exec 'term ' . g:jutge_command_cookie . ' add-cases ' . '"%" ' . s:jutge_flags 
     else
@@ -87,24 +87,24 @@ function! JutgeAddCases(...) abort
     endif
 endfunction
 
-function! JutgePrint(...) abort
+function! JutgeShow(...) abort
     if a:0 != 1
         echoerr "1 argument needed"
         return
     endif
     if a:1 == 'name'
-        exec '!' . g:jutge_command_cookie . ' print name ' . '-p "%"'
+        exec '!' . g:jutge_command_cookie . ' show name ' . '-p "%"'
     elseif a:1 == 'stat'
         if has('nvim')
-            exec 'term ' . g:jutge_command_cookie . ' print stat ' . '-p "%"'
+            exec 'term ' . g:jutge_command_cookie . ' show stat ' . '-p "%"'
         else
-            exec '!' . g:jutge_command_cookie . ' print stat ' . '-p "%"'
+            exec '!' . g:jutge_command_cookie . ' show stat ' . '-p "%"'
         endif
     elseif a:1 == 'cases'
         if has('nvim')
-            exec 'term ' . g:jutge_command_cookie . ' print cases ' . '-p "%"'
+            exec 'term ' . g:jutge_command_cookie . ' show cases ' . '-p "%"'
         else
-            exec '!' . g:jutge_command_cookie . ' print cases ' . '-p "%"'
+            exec '!' . g:jutge_command_cookie . ' show cases ' . '-p "%"'
         endif
     else
         echoerr 'Invalid command'
@@ -137,15 +137,33 @@ function! JutgeNew() abort
     exec '!' . g:jutge_command_cookie . ' new ' . s:name
 endfunction
 
+function! JutgeCookie() abort
+    if a:0 == 0
+        let s:name = @+
+        if s:name == "" 
+            echoerr "Clipboard empty"
+            return
+        endif
+    elseif a:0 == 1
+        s:name = a:0
+    else
+        echoerr "This function takes one parameter or the name from the clipboard"
+        return
+    endif
+    echomsg s:name
+    exec '!' . g:jutge_command . ' cookie ' . s:name
+endfunction
+
 " Commands to the previoud functions
 command! -nargs=? JutgeTest call JutgeTest(<f-args>)
 command! -nargs=? JT call JutgeTest(<f-args>)
 command! JutgeFet call JutgeFet()
-command! -nargs=1 JutgePrint call JutgePrint(<f-args>)
+command! -nargs=1 JutgeShow call JutgeShow(<f-args>)
 command! JutgeDownload call JutgeDownload()
-command! -nargs=? JutgeAddCases call JutgeAddCases(<f-args>)
+command! -nargs=? JutgeAddTest call JutgeAddTest(<f-args>)
 command! -nargs=? JutgeCookie call JutgeCookie(<f-args>)
 command! -nargs=? JC call JutgeCookie(<f-args>)
+command! -nargs=? JVC call JutgeVimCookie(<f-args>)
 command! -nargs=? JutgeNew call JutgeNew(<f-args>)
 command! -nargs=? JN call JutgeNew(<f-args>)
 
