@@ -17,7 +17,7 @@ let g:jutge_cookie = ""
 let g:jutge_command = get(g:,'jutge_command', expand(s:local_path .'/../python/jutge_cli/jutge.py'))
 let g:jutge_command_cookie = g:jutge_command
 
-let g:jutge_folder = get(g:, 'jutge_folder' , $HOME . '/Documents/Universitat/PROG')
+let g:jutge_folder = get(g:, 'jutge_folder' , $HOME . '/Documents/UPC/jutge')
 
 let g:jutge_default_flags = get(g:, 'jutge_default_flags' , '')
 let g:jutge_test_flags = get(g:, 'jutge_test_flags' , '')
