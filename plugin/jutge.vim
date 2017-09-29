@@ -62,7 +62,7 @@ endfunction
 function! JutgeTest(...) abort
     let s:jutge_flags = join(a:000) . ' ' . g:jutge_default_flags . ' ' . g:jutge_test_flags
     if &filetype == 'cpp' || &filetype == 'c'
-        let s:executable = "%:h/_%:t:r"
+        let s:executable = "%:h/%:t:r.x"
     else
         let s:executable = %
     endif
