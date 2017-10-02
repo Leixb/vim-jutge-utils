@@ -26,8 +26,8 @@ let g:jutge_addtest_flags = get(g:, 'jutge_addtest_flags' , '')
 
 let g:jutge_done_folder = get(g:, 'jutge_done_folder', g:jutge_folder . '/Done')
 
-" Boolean, tells JutgeFet() to delete file in working dir after writing it
-" to the done folder
+" Boolean, tells JutgeArchive() to delete file in working dir after writing it
+" to the archive
 let g:jutge_delete_done = get(g:,'jutge_delete_done', 1)
 
 " Check that jutge.py is installed and working
@@ -112,11 +112,16 @@ function! JutgeShow(...) abort
 endfunction
 
 " Move done programms to a specifici folder. Use with care
-function! JutgeFet() abort
-    let s:option = confirm("This will move the current file to " . g:jutge_done_folder . " proceed?", "&Yes\n&no", 1)
+
+function! JutgeArchive() abort
+    let s:option = confirm("This will move the current file to the archive; proceed?", "&Yes\n&no", 1)
     if s:option==1
-        exec '!' . g:jutge_command_cookie .' archive ' . ' "%"'
-        normal bd!<CR>
+        if g:jutge_delete_done==1
+            exec '!' . g:jutge_command_cookie . ' archive "%"'
+            normal bd!<CR>
+        else
+            exec '!' . g:jutge_command_cookie . ' archive "%" --no-delete'
+        endif
     endif
 endfunction
 
@@ -154,10 +159,15 @@ function! JutgeCookie() abort
     exec '!' . g:jutge_command . ' cookie ' . s:name
 endfunction
 
+function! JutgeUpload() abort
+    exec '!' . g:jutge_command_cookie . ' upload "%"'
+endfunction
+
 " Commands to the previoud functions
 command! -nargs=? JutgeTest call JutgeTest(<f-args>)
 command! -nargs=? JT call JutgeTest(<f-args>)
-command! JutgeFet call JutgeFet()
+command! JutgeArchive call JutgeArchive()
+command! JutgeFet call JutgeArchive()
 command! -nargs=1 JutgeShow call JutgeShow(<f-args>)
 command! JutgeDownload call JutgeDownload()
 command! -nargs=? JutgeAddTest call JutgeAddTest(<f-args>)
@@ -166,6 +176,8 @@ command! -nargs=? JC call JutgeCookie(<f-args>)
 command! -nargs=? JVC call JutgeVimCookie(<f-args>)
 command! -nargs=? JutgeNew call JutgeNew(<f-args>)
 command! -nargs=? JN call JutgeNew(<f-args>)
+command! JutgeUpload call JutgeUpload()
+command! JU call JutgeUpload()
 
 " If dentie exists define some nice commands to search through already solved
 " problems
