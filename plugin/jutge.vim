@@ -61,15 +61,10 @@ endfunction
 " Wraper around jutge.py to test cases from jutge.org
 function! JutgeTest(...) abort
     let s:jutge_flags = join(a:000) . ' ' . g:jutge_default_flags . ' ' . g:jutge_test_flags
-    if &filetype == 'cpp' || &filetype == 'c'
-        let s:executable = "%:h/%:t:r.x"
-    else
-        let s:executable = %
-    endif
     if has('nvim')
-        exec 'term ' . g:jutge_command_cookie . ' test ' . '"' . s:executable . '" ' . s:jutge_flags 
+        exec 'term ' . g:jutge_command_cookie . ' test "%"' . s:jutge_flags 
     else
-        exec '!' . g:jutge_command_cookie . ' test ' . '"' . s:executable . '" ' . s:jutge_flags 
+        exec '!' . g:jutge_command_cookie . ' test "%"' . s:jutge_flags 
     endif
 endfunction
 
