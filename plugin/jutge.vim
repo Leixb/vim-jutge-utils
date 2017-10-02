@@ -117,8 +117,9 @@ function! JutgeArchive() abort
     let s:option = confirm("This will move the current file to the archive; proceed?", "&Yes\n&no", 1)
     if s:option==1
         if g:jutge_delete_done==1
-            exec '!' . g:jutge_command_cookie . ' archive "%"'
+            let s:filename = expand("%")
             normal bd!<CR>
+            exec '!' . g:jutge_command_cookie . ' archive "' . s:filename . '"'
         else
             exec '!' . g:jutge_command_cookie . ' archive "%" --no-delete'
         endif
@@ -164,22 +165,17 @@ function! JutgeUpload() abort
 endfunction
 
 " Commands to the previoud functions
-command! -nargs=? JutgeTest call JutgeTest(<f-args>)
-command! -nargs=? JT call JutgeTest(<f-args>)
-command! JutgeArchive call JutgeArchive()
-command! JutgeFet call JutgeArchive()
-command! -nargs=1 JutgeShow call JutgeShow(<f-args>)
-command! JutgeDownload call JutgeDownload()
-command! -nargs=? JutgeAddTest call JutgeAddTest(<f-args>)
-command! -nargs=? JutgeCookie call JutgeCookie(<f-args>)
-command! -nargs=? JC call JutgeCookie(<f-args>)
-command! -nargs=? JVC call JutgeVimCookie(<f-args>)
-command! -nargs=? JutgeNew call JutgeNew(<f-args>)
-command! -nargs=? JN call JutgeNew(<f-args>)
-command! JutgeUpload call JutgeUpload()
-command! JU call JutgeUpload()
+command! -nargs=? JTest call JutgeTest(<f-args>)
+command! JArchive call JutgeArchive()
+command! -nargs=1 JShow call JutgeShow(<f-args>)
+command! JDownload call JutgeDownload()
+command! -nargs=? JAddTest call JutgeAddTest(<f-args>)
+command! -nargs=? JCookie call JutgeCookie(<f-args>)
+command! -nargs=? JVimCookie call JutgeVimCookie(<f-args>)
+command! -nargs=? JNew call JutgeNew(<f-args>)
+command! JUpload call JutgeUpload()
 
 " If dentie exists define some nice commands to search through already solved
 " problems
-command! JutgeSearch exec 'Denite -path=' . g:jutge_done_folder ' file_rec'
-command! -nargs=? JutgeGrep exec 'Denite -path=' . expand(g:jutge_done_folder) ' grep -input=' . '<args>'
+command! JSearch exec 'Denite -path=' . g:jutge_done_folder ' file_rec'
+command! -nargs=? JGrep exec 'Denite -path=' . expand(g:jutge_done_folder) ' grep -input=' . '<args>'
