@@ -113,7 +113,7 @@ function! JutgeArchive() abort
     if s:option==1
         if g:jutge_delete_done==1
             let s:filename = expand("%")
-            normal bd!<CR>
+            bd!
             exec '!' . g:jutge_command_cookie . ' archive "' . s:filename . '"'
         else
             exec '!' . g:jutge_command_cookie . ' archive "%" --no-delete'
@@ -159,6 +159,10 @@ function! JutgeUpload() abort
     exec '!' . g:jutge_command_cookie . ' upload "%"'
 endfunction
 
+function! JutgeCheck() abort
+    exec '!' . g:jutge_command_cookie . ' check --last'
+endfunction
+
 " Commands to the previoud functions
 command! -nargs=? JTest call JutgeTest(<f-args>)
 command! JArchive call JutgeArchive()
@@ -169,6 +173,7 @@ command! -nargs=? JCookie call JutgeCookie(<f-args>)
 command! -nargs=? JVimCookie call JutgeVimCookie(<f-args>)
 command! -nargs=? JNew call JutgeNew(<f-args>)
 command! JUpload call JutgeUpload()
+command! JCheck call JutgeCheck()
 
 " If dentie exists define some nice commands to search through already solved
 " problems
