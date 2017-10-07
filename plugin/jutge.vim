@@ -23,6 +23,7 @@ let g:jutge_default_flags = get(g:, 'jutge_default_flags' , '')
 let g:jutge_test_flags = get(g:, 'jutge_test_flags' , '')
 let g:jutge_download_flags = get(g:, 'jutge_download_flags' , '')
 let g:jutge_addtest_flags = get(g:, 'jutge_addtest_flags' , '')
+let g:jutge_new_flags = get(g:,'jutge_new_flags', '')
 
 let g:jutge_done_folder = get(g:, 'jutge_done_folder', g:jutge_folder . '/Done')
 
