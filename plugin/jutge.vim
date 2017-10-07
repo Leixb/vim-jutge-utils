@@ -76,9 +76,9 @@ endfunction
 function! JutgeAddTest(...) abort
     let s:jutge_flags = join(a:000) . ' ' . g:jutge_default_flags . ' ' . g:jutge_addtest_flags
     if has('nvim')
-        exec 'term ' . g:jutge_command_cookie . ' add-cases ' . '"%" ' . s:jutge_flags 
+        exec 'term ' . g:jutge_command_cookie . ' add-test ' . '"%" ' . s:jutge_flags 
     else
-        exec '!' . g:jutge_command_cookie . ' add-cases ' . '"%" ' . s:jutge_flags 
+        exec '!' . g:jutge_command_cookie . ' add-test ' . '"%" ' . s:jutge_flags 
     endif
 endfunction
 
@@ -88,7 +88,7 @@ function! JutgeShow(...) abort
         return
     endif
     if a:1 == 'name'
-        exec '!' . g:jutge_command_cookie . ' show name ' . '-p "%"'
+        exec '!' . g:jutge_command_cookie . ' show title ' . '-p "%"'
     elseif a:1 == 'stat'
         if has('nvim')
             exec 'term ' . g:jutge_command_cookie . ' show stat ' . '-p "%"'
@@ -122,6 +122,7 @@ function! JutgeArchive() abort
 endfunction
 
 function! JutgeNew() abort
+    let s:jutge_flags = join(a:000) . ' ' . g:jutge_default_flags . ' ' . g:jutge_new_flags
     if a:0 == 0
         let s:name = @+
         if s:name == "" 
@@ -135,7 +136,7 @@ function! JutgeNew() abort
         return
     endif
     echomsg s:name
-    exec '!' . g:jutge_command_cookie . ' new ' . s:name
+    exec '!' . g:jutge_command_cookie . ' new ' . s:name . ' ' .s:jutge_flags
 endfunction
 
 function! JutgeCookie() abort
@@ -156,11 +157,20 @@ function! JutgeCookie() abort
 endfunction
 
 function! JutgeUpload() abort
+    let s:jutge_flags = join(a:000) . ' ' . g:jutge_default_flags . ' ' . g:jutge_new_flags
     exec '!' . g:jutge_command_cookie . ' upload "%"'
+endfunction
+
+function! JutgeUploadAndCheck() abort
+    exec '!' . g:jutge_command_cookie . ' upload "%" --check'
 endfunction
 
 function! JutgeCheck() abort
     exec '!' . g:jutge_command_cookie . ' check --last'
+endfunction
+
+function! JutgeLogin() abort
+    exec '!' . g:jutge_command . ' login'
 endfunction
 
 " Commands to the previoud functions
@@ -174,8 +184,9 @@ command! -nargs=? JVimCookie call JutgeVimCookie(<f-args>)
 command! -nargs=? JNew call JutgeNew(<f-args>)
 command! JUpload call JutgeUpload()
 command! JCheck call JutgeCheck()
+command! JLogin call JutgeLogin()
 
 " If dentie exists define some nice commands to search through already solved
 " problems
-command! JSearch exec 'Denite -path=' . g:jutge_done_folder ' file_rec'
-command! -nargs=? JGrep exec 'Denite -path=' . expand(g:jutge_done_folder) ' grep -input=' . '<args>'
+command! JSearch exec 'Denite -path=' . expand(g:jutge_done_folder) ' file_rec'
+command! -nargs=? JGrep exec 'Denite -path=' . expand(g:jutge_done_folder) . ' grep -input=' . '<args>'
