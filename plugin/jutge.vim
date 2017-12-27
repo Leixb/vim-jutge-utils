@@ -39,14 +39,14 @@ endif
 function! JutgeVimCookie(...) abort
     if a:0 == 0
         let s:clipboard_content = @+
-        if s:clipboard_content == "" 
+        if s:clipboard_content == ""
             echoerr "Clipboard empty!"
             return
         else
             let g:jutge_cookie = s:clipboard_content
         endif
     else
-        if a:0 == "" 
+        if a:0 == ""
             echoerr "No cookie provided and Clipboard is empty!"
             return
         else
@@ -63,23 +63,23 @@ endfunction
 function! JutgeTest(...) abort
     let s:jutge_flags = join(a:000) . ' ' . g:jutge_default_flags . ' ' . g:jutge_test_flags
     if has('nvim')
-        exec 'term ' . g:jutge_command_cookie . ' test "%"' . s:jutge_flags 
+        exec 'term ' . g:jutge_command_cookie . ' test "%"' . s:jutge_flags
     else
-        exec '!' . g:jutge_command_cookie . ' test "%"' . s:jutge_flags 
+        exec '!' . g:jutge_command_cookie . ' test "%"' . s:jutge_flags
     endif
 endfunction
 
 function! JutgeDownload(...) abort
     let s:jutge_flags = join(a:000) . ' ' . g:jutge_default_flags . ' ' . g:jutge_download_flags
-    exec '!' . g:jutge_command_cookie . ' download ' . '"%" ' . s:jutge_flags 
+    exec '!' . g:jutge_command_cookie . ' download ' . '"%" ' . s:jutge_flags
 endfunction
 
 function! JutgeAddTest(...) abort
     let s:jutge_flags = join(a:000) . ' ' . g:jutge_default_flags . ' ' . g:jutge_addtest_flags
     if has('nvim')
-        exec 'term ' . g:jutge_command_cookie . ' add-test ' . '"%" ' . s:jutge_flags 
+        exec 'term ' . g:jutge_command_cookie . ' add-test ' . '"%" ' . s:jutge_flags
     else
-        exec '!' . g:jutge_command_cookie . ' add-test ' . '"%" ' . s:jutge_flags 
+        exec '!' . g:jutge_command_cookie . ' add-test ' . '"%" ' . s:jutge_flags
     endif
 endfunction
 
@@ -126,7 +126,7 @@ function! JutgeNew() abort
     let s:jutge_flags = join(a:000) . ' ' . g:jutge_default_flags . ' ' . g:jutge_new_flags
     if a:0 == 0
         let s:name = @+
-        if s:name == "" 
+        if s:name == ""
             echoerr "Clipboard empty"
             return
         endif
@@ -143,7 +143,7 @@ endfunction
 function! JutgeCookie() abort
     if a:0 == 0
         let s:name = @+
-        if s:name == "" 
+        if s:name == ""
             echoerr "Clipboard empty"
             return
         endif
