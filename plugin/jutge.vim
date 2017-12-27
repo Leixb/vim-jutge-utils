@@ -189,5 +189,5 @@ command! JLogin call JutgeLogin()
 
 " If dentie exists define some nice commands to search through already solved
 " problems
-command! JSearch exec 'Denite -path=' . expand(g:jutge_done_folder) ' file_rec'
+command! JSearch exec 'Denite -path=' . expand(g:jutge_done_folder) . ' file_rec'
 command! -nargs=? JGrep exec 'Denite -path=' . expand(g:jutge_done_folder) . ' grep -input=' . '<args>'
