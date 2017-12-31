@@ -145,7 +145,7 @@ function! JutgeNew() abort
     let s:filename = system(s:jutge_new_command)
 
     if v:shell_error == 0
-        execute 'edit' escape(s:filename)
+        execute 'edit' fnameescape(s:filename)
     else
         echoerr 'Failed with error ' . v:shell_error . ": " . s:filename
     endif
