@@ -139,10 +139,10 @@ function! JutgeNew() abort
 
     echomsg s:name
 
-    let s:command = g:jutge_command_cookie . ' new ' . s:name . ' ' .s:jutge_flags
-    echomsg s:command
+    let s:jutge_new_command = g:jutge_command_cookie . ' new ' . s:name . ' ' . s:jutge_flags
+    echomsg s:jutge_new_command
 
-    execute 'edit' . ' "' . system(s:command) . '"'
+    execute 'edit' . ' "' . system(s:jutge_new_command) . '"'
 
 endfunction
 
