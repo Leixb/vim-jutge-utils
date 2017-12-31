@@ -145,8 +145,8 @@ function! JutgeNew() abort
     let s:filename = systemlist(s:jutge_new_command)[0]
 
     if v:shell_error == 0
-        silent execute 'edit' fnameescape(s:filename)
-        silent call cursor(4, 0)
+        execute 'edit' fnameescape(s:filename)
+        call cursor(4, 0)
     else
         echoerr 'Failed with error ' . v:shell_error . ": " . s:filename
     endif
@@ -195,7 +195,7 @@ command! JDownload call JutgeDownload()
 command! -nargs=? JAddTest call JutgeAddTest(<f-args>)
 command! -nargs=? JCookie call JutgeCookie(<f-args>)
 command! -nargs=? JVimCookie call JutgeVimCookie(<f-args>)
-command! -nargs=? JNew call JutgeNew(<f-args>)
+command! -nargs=? silent JNew call JutgeNew(<f-args>)
 command! JUpload call JutgeUpload()
 command! JCheck call JutgeCheck()
 command! JLogin call JutgeLogin()
