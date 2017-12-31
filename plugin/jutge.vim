@@ -139,7 +139,7 @@ function! JutgeNew() abort
 
     echomsg s:name
 
-    let s:command = shellescape(g:jutge_command_cookie . ' new ' . s:name . ' ' .s:jutge_flags)
+    let s:command = g:jutge_command_cookie . ' new ' . s:name . ' ' .s:jutge_flags
     echomsg s:command
 
     execute 'edit' shellescape(system(s:command))
