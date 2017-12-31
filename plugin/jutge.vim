@@ -142,7 +142,7 @@ function! JutgeNew() abort
     let s:jutge_new_command = g:jutge_command_cookie . ' new ' . s:name . ' ' . s:jutge_flags
     echomsg s:jutge_new_command
 
-    let s:filename = system(s:jutge_new_command)
+    let s:filename = systemlist(s:jutge_new_command)[0]
 
     if v:shell_error == 0
         execute 'edit' fnameescape(s:filename)
