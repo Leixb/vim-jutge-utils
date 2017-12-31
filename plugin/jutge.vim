@@ -146,6 +146,7 @@ function! JutgeNew() abort
 
     if v:shell_error == 0
         execute 'edit' fnameescape(s:filename)
+        call cursor(4, 0)
     else
         echoerr 'Failed with error ' . v:shell_error . ": " . s:filename
     endif
