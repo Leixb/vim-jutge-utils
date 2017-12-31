@@ -127,8 +127,11 @@ function! JutgeNew() abort
     if a:0 == 0
         let s:name = @+
         if s:name == ""
-            echoerr "Clipboard empty"
-            return
+            let s:name = @*
+            if s:name == ""
+                echoerr "Clipboard empty"
+                return
+            endif
         endif
     elseif a:0 == 1
         s:name = a:0
