@@ -127,11 +127,8 @@ function! JutgeNew() abort
     if a:0 == 0
         let s:name = @+
         if s:name == ""
-            let s:name = @*
-            if s:name == ""
-                echoerr "Clipboard empty"
-                return
-            endif
+            echoerr "Clipboard empty"
+            return
         endif
     elseif a:0 == 1
         s:name = a:0
@@ -139,8 +136,14 @@ function! JutgeNew() abort
         echoerr "This function takes one parameter or the name from the clipboard"
         return
     endif
+
     echomsg s:name
-    exec '!' . g:jutge_command_cookie . ' new ' . s:name . ' ' .s:jutge_flags
+
+    let s:command = shellescape(g:jutge_command_cookie . ' new ' . s:name . ' ' .s:jutge_flags)
+    echomsg s:command
+
+    execute 'edit' shellescape(system(s:command))
+
 endfunction
 
 function! JutgeCookie() abort
