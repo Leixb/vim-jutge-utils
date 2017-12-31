@@ -142,7 +142,13 @@ function! JutgeNew() abort
     let s:jutge_new_command = g:jutge_command_cookie . ' new ' . s:name . ' ' . s:jutge_flags
     echomsg s:jutge_new_command
 
-    execute 'edit' . ' "' . system(s:jutge_new_command) . '"'
+    let s:filename = system(s:jutge_new_command)
+
+    if v:shell_error == 0
+        execute 'edit' escape(s:filename)
+    else
+        echoerr 'Failed with error ' . v:shell_error . ": " . s:filename
+    endif
 
 endfunction
 
